@@ -1,8 +1,8 @@
-import requests
+import requests #Import required modules/libraries
 
 city_name = "Mumbai"
-API_key = 'e350f55f214b4beb91a7550b5a8884e4'
-
+API_key = 'e350f55f214b4beb91a7550b5a8884e4' #Store API key used to access weather data
+#Store the weather API URL
 url = f"https://api.openweathermap.org/data/2.5/weather?q={city_name}&appid={API_key}&units=metric"
 
 try:
@@ -17,16 +17,17 @@ try:
     elif response.status_code == 200:
         data = response.json()
 
-        # Temperature
+        # Display Temperature
         celsius = data["main"]["temp"]
         fahrenheit = (celsius * 9/5) + 32
 
-        # Other weather information
+        #Display Humidity,Weather detail , Wind speed
         humidity = data["main"]["humidity"]
         condition = data["weather"][0]["description"].title()
         wind_speed = data["wind"]["speed"]
 
-        # Display weather
+        # Display weather details 
+        #Required tasks mentioned
         print("Current Weather")
         print("----------------------")
         print(f"City: {city_name}")
