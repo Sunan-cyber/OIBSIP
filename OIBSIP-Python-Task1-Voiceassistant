@@ -1,21 +1,22 @@
+# IMPORT required libraries
 import speech_recognition as sr
 import pyttsx3
 import datetime
 import webbrowser
 
-# Create objects
+# Initialise speech recognition and text-to-speech engines
 recognizer = sr.Recognizer()
 engine = pyttsx3.init()
 
 
-# Text-to-speech
+# Converting the Text-to-speech
 def speak(text):
     print("Assistant:", text)
     engine.say(text)
     engine.runAndWait()
 
 
-# Capture voice input
+# Listen to the user's voice and convert it into text
 def listen():
     with sr.Microphone() as source:
         print("Listening...")
@@ -46,7 +47,7 @@ def listen():
             return ""
 
 
-# Main voice assistant
+# Main function that runs the voice assistant
 def voice_assistant():
     speak("Hello!Greetings! I am your voice assistant. How can I help you?")
 
@@ -60,7 +61,7 @@ def voice_assistant():
         if "hello" in command or "hi" in command:
             speak("Hello! Nice to meet you.")
 
-        # Time
+        # Get current time and date
         elif "time" in command:
             current_time = datetime.datetime.now().strftime("%I:%M %p")
             speak(f"The current time is {current_time}")
@@ -70,7 +71,7 @@ def voice_assistant():
             current_date = datetime.datetime.now().strftime("%B %d, %Y")
             speak(f"Today's date is {current_date}")
 
-        # Web search
+        # Open a website in the default web browser
         elif "search" in command:
             topic = command.replace("search", "").strip()
 
@@ -81,12 +82,12 @@ def voice_assistant():
             else:
                 speak("What would you like me to search for?")
 
-        # Goodbye
+        # Exit the assistant : Goodbye
         elif "goodbye" in command or "bye" in command or "exit" in command:
             speak("Goodbye! Have a nice day.")
             break
 
-        # Unknown command
+        # Response to any unkown command
         else:
             speak("I don't know that command yet. Please try again.")
 
