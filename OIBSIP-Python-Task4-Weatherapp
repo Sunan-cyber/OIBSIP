@@ -1,0 +1,45 @@
+import requests
+
+city_name = "Mumbai"
+API_key = 'e350f55f214b4beb91a7550b5a8884e4'
+
+url = f"https://api.openweathermap.org/data/2.5/weather?q={city_name}&appid={API_key}&units=metric"
+
+try:
+    response = requests.get(url, timeout=10)
+
+    if response.status_code == 404:
+        print("Error: City not found. Please check the city name.")
+
+    elif response.status_code == 401:
+        print("Error: Invalid API key.")
+
+    elif response.status_code == 200:
+        data = response.json()
+
+        # Temperature
+        celsius = data["main"]["temp"]
+        fahrenheit = (celsius * 9/5) + 32
+
+        # Other weather information
+        humidity = data["main"]["humidity"]
+        condition = data["weather"][0]["description"].title()
+        wind_speed = data["wind"]["speed"]
+
+        # Display weather
+        print("Current Weather")
+        print("----------------------")
+        print(f"City: {city_name}")
+        print(f"Temperature: {celsius} °C / {fahrenheit:.1f} °F")
+        print(f"Humidity: {humidity}%")
+        print(f"Weather Condition: {condition}")
+        print(f"Wind Speed: {wind_speed} m/s")
+
+    else:
+        print("Error: Unable to get weather information.")
+
+except requests.exceptions.Timeout:
+    print("Error: Network timeout. Please check your internet connection.")
+
+except requests.exceptions.RequestException:
+    print("Error: Network connection failed.")
