@@ -1,21 +1,18 @@
-#Oasis Infobyte Internship programme Python Programming building Chatapplication
-
-import socket #import required modules
+import socket
 import threading
 from datetime import datetime
-#Server configuration
 
-HOST = "127.0.0.1" #LOCALHOST address
-PORT = 5555 #Port used for communication
-#variable for client and their username
+HOST = "127.0.0.1"
+PORT = 5555
+
 clients = []
 names = []
 
-#generate the current time stamp for message timestamps
+
 def timestamp():
     return datetime.now().strftime("%H:%M")
 
-#messages sent to all connected clients
+
 def broadcast(message, sender=None):
     for client in clients:
         if client != sender:
